@@ -1,0 +1,13 @@
+d:\code\MusicLabeler\MusicLabeler\bin\Debug\netcoreapp3.1\MusicLabeler.exe
+d:\code\MusicLabeler\MusicLabeler\obj\Debug\netcoreapp3.1\MusicLabeler.csprojAssemblyReference.cache
+d:\code\MusicLabeler\MusicLabeler\obj\Debug\netcoreapp3.1\MusicLabeler.AssemblyInfoInputs.cache
+d:\code\MusicLabeler\MusicLabeler\obj\Debug\netcoreapp3.1\MusicLabeler.AssemblyInfo.cs
+d:\code\MusicLabeler\MusicLabeler\bin\Debug\netcoreapp3.1\MusicLabeler.deps.json
+d:\code\MusicLabeler\MusicLabeler\bin\Debug\netcoreapp3.1\MusicLabeler.runtimeconfig.json
+d:\code\MusicLabeler\MusicLabeler\bin\Debug\netcoreapp3.1\MusicLabeler.runtimeconfig.dev.json
+d:\code\MusicLabeler\MusicLabeler\bin\Debug\netcoreapp3.1\MusicLabeler.dll
+d:\code\MusicLabeler\MusicLabeler\bin\Debug\netcoreapp3.1\MusicLabeler.pdb
+d:\code\MusicLabeler\MusicLabeler\bin\Debug\netcoreapp3.1\taglib-sharp.dll
+d:\code\MusicLabeler\MusicLabeler\obj\Debug\netcoreapp3.1\MusicLabeler.csproj.CopyComplete
+d:\code\MusicLabeler\MusicLabeler\obj\Debug\netcoreapp3.1\MusicLabeler.dll
+d:\code\MusicLabeler\MusicLabeler\obj\Debug\netcoreapp3.1\MusicLabeler.pdb
