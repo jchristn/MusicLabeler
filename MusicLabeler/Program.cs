@@ -10,16 +10,23 @@ namespace MusicLabeler
 {
     class Program
     {
-        static string _SourceDirectory = null; 
+        static string _SourceDirectory = null;
+        static string _FilePattern = null;
 
         static void Main(string[] args)
         {
             while (String.IsNullOrEmpty(_SourceDirectory))
             {
-                Console.Write("Source directory : ");
+                Console.Write("Source directory          : ");
                 _SourceDirectory = Console.ReadLine();
             }
              
+            while (String.IsNullOrEmpty(_FilePattern))
+            {
+                Console.Write("File pattern (i.e. *.mp3) : ");
+                _FilePattern = Console.ReadLine();
+            }
+
             _SourceDirectory = _SourceDirectory.Replace("\\", "/"); 
 
             if (!_SourceDirectory.EndsWith("/")) _SourceDirectory += "/"; 
@@ -108,6 +115,8 @@ namespace MusicLabeler
                 tlFile.Save();
 
                 #endregion
+
+                Console.WriteLine("Success: " + filename);
             }
         }
 
@@ -117,9 +126,14 @@ namespace MusicLabeler
 
             try
             {
+                foreach (string f in Directory.GetFiles(root, _FilePattern))
+                {
+                    ret.Add(f);
+                }
+
                 foreach (string d in Directory.GetDirectories(root))
                 {
-                    foreach (string f in Directory.GetFiles(d))
+                    foreach (string f in Directory.GetFiles(d, _FilePattern))
                     {
                         ret.Add(f);
                     }
