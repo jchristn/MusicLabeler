@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj": {}
+    "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj": {}
   },
   "projects": {
-    "d:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj": {
+    "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj",
+        "projectUniqueName": "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj",
         "projectName": "MusicLabeler",
-        "projectPath": "d:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj",
+        "projectPath": "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj",
         "packagesPath": "C:\\Users\\joelc\\.nuget\\packages\\",
-        "outputPath": "d:\\code\\MusicLabeler\\MusicLabeler\\obj\\",
+        "outputPath": "D:\\code\\MusicLabeler\\MusicLabeler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -11,20 +11,35 @@ namespace MusicLabeler
     class Program
     {
         static string _SourceDirectory = null;
-        static string _FilePattern = null;
+        static string _FileExtension = null;
 
         static void Main(string[] args)
         {
             while (String.IsNullOrEmpty(_SourceDirectory))
             {
-                Console.Write("Source directory          : ");
+                Console.Write("Source directory       : ");
                 _SourceDirectory = Console.ReadLine();
             }
              
-            while (String.IsNullOrEmpty(_FilePattern))
+            while (String.IsNullOrEmpty(_FileExtension))
             {
-                Console.Write("File pattern (i.e. *.mp3) : ");
-                _FilePattern = Console.ReadLine();
+                Console.Write("File extension (mp3)   : ");
+                _FileExtension = Console.ReadLine();
+            }
+
+            bool recurse = false;
+            Console.Write("Recursive (true|false) : ");
+            string recurseStr = Console.ReadLine();
+            if (!String.IsNullOrEmpty(recurseStr))
+            {
+                try
+                {
+                    recurse = Convert.ToBoolean(recurseStr);
+                }
+                catch (Exception)
+                {
+
+                }
             }
 
             _SourceDirectory = _SourceDirectory.Replace("\\", "/"); 
@@ -32,7 +47,7 @@ namespace MusicLabeler
             if (!_SourceDirectory.EndsWith("/")) _SourceDirectory += "/"; 
 
             // List<string> files = Directory.EnumerateFiles(_SourceDirectory).ToList();
-            List<string> files = GetAllFiles(_SourceDirectory);
+            List<string> files = GetAllFiles(_SourceDirectory, recurse);
 
             foreach (string file in files)
             {
@@ -68,12 +83,13 @@ namespace MusicLabeler
                 string[] parts = filename.Split(new[] { '-' }, 2);
                 artist = parts[0].Trim();
                 titleAndMix = parts[1].Trim();
+                titleAndMix = titleAndMix.Replace("." + _FileExtension, "");
 
                 if (titleAndMix.Contains("(") && titleAndMix.Contains(")"))
                 {
                     string[] titleAndMixParts = titleAndMix.Split(new[] { '(' }, 2);
                     title = titleAndMixParts[0].Trim();
-                    mix = titleAndMixParts[1].Trim();
+                    mix = titleAndMixParts[1].Trim().Replace("(", "").Replace(")", "");
                 }
                 else
                 {
@@ -101,11 +117,13 @@ namespace MusicLabeler
                 #region Apply-Tags
 
                 TagLib.File tlFile = TagLib.File.Create(file);
+                tlFile.Tag.Artists = new string[] { artist };
+                tlFile.Tag.Performers = new string[] { artist };
                 tlFile.Tag.AlbumArtists = new string[] { artist };
 
                 if (!String.IsNullOrEmpty(mix))
                 {
-                    tlFile.Tag.Title = title + " " + mix;
+                    tlFile.Tag.Title = title + " (" + mix + ")";
                 }
                 else
                 {
@@ -113,6 +131,7 @@ namespace MusicLabeler
                 }
 
                 tlFile.Save();
+                tlFile.Dispose();
 
                 #endregion
 
@@ -120,25 +139,21 @@ namespace MusicLabeler
             }
         }
 
-        static List<string> GetAllFiles(string root)
+        static List<string> GetAllFiles(string root, bool recurse)
         {
             List<string> ret = new List<string>();
+            string pattern = "*." + _FileExtension;
 
             try
             {
-                foreach (string f in Directory.GetFiles(root, _FilePattern))
+                foreach (string f in Directory.GetFiles(root, pattern))
                 {
                     ret.Add(f);
                 }
 
                 foreach (string d in Directory.GetDirectories(root))
-                {
-                    foreach (string f in Directory.GetFiles(d, _FilePattern))
-                    {
-                        ret.Add(f);
-                    }
-
-                    ret.AddRange(GetAllFiles(d));
+                { 
+                    if (recurse) ret.AddRange(GetAllFiles(d, recurse));
                 }
             }
             catch (Exception e)
