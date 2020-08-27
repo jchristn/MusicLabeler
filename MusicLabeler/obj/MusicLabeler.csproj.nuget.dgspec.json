@@ -1,30 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj": {}
+    "/Users/hax0r/Documents/Code/c#/musiclabeler/MusicLabeler/MusicLabeler.csproj": {}
   },
   "projects": {
-    "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj": {
+    "/Users/hax0r/Documents/Code/c#/musiclabeler/MusicLabeler/MusicLabeler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj",
+        "projectUniqueName": "/Users/hax0r/Documents/Code/c#/musiclabeler/MusicLabeler/MusicLabeler.csproj",
         "projectName": "MusicLabeler",
-        "projectPath": "D:\\code\\MusicLabeler\\MusicLabeler\\MusicLabeler.csproj",
-        "packagesPath": "C:\\Users\\joelc\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\MusicLabeler\\MusicLabeler\\obj\\",
+        "projectPath": "/Users/hax0r/Documents/Code/c#/musiclabeler/MusicLabeler/MusicLabeler.csproj",
+        "packagesPath": "/Users/hax0r/.nuget/packages/",
+        "outputPath": "/Users/hax0r/Documents/Code/c#/musiclabeler/MusicLabeler/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\joelc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/hax0r/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.301/RuntimeIdentifierGraph.json"
         }
       }
     }

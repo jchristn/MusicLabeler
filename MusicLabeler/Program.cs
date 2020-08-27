@@ -12,9 +12,14 @@ namespace MusicLabeler
     {
         static string _SourceDirectory = null;
         static string _FileExtension = null;
+        static int _Success = 0;
+        static int _Failure = 0;
+        static List<string> _FailedFiles = new List<string>();
 
         static void Main(string[] args)
         {
+            Console.WriteLine("");
+
             while (String.IsNullOrEmpty(_SourceDirectory))
             {
                 Console.Write("Source directory       : ");
@@ -49,6 +54,10 @@ namespace MusicLabeler
             // List<string> files = Directory.EnumerateFiles(_SourceDirectory).ToList();
             List<string> files = GetAllFiles(_SourceDirectory, recurse);
 
+            Console.WriteLine("");
+            Console.WriteLine("Found information for " + files.Count + " file(s)");
+            Console.WriteLine("");
+
             foreach (string file in files)
             {
                 string filenameAndPath = file;
@@ -58,11 +67,21 @@ namespace MusicLabeler
                 string title = null;
                 string mix = null;
 
+                if (filename.StartsWith("._"))
+                {
+                    // MacOS extended attribute file
+                    continue;
+                }
+                else
+                {
+                    Console.Write("  " + filename + ": ");
+                }
+
                 #region Rename
 
                 if (filenameAndPath.Contains("–"))
                 {
-                    Console.WriteLine("[rename] " + filename);
+                    Console.Write("[rename] " + filename + " ");
                     string newName = filenameAndPath.Replace("–", "-");
                     byte[] fileData = System.IO.File.ReadAllBytes(filenameAndPath);
                     System.IO.File.Copy(filenameAndPath, filenameAndPath + ".bak");
@@ -76,7 +95,9 @@ namespace MusicLabeler
 
                 if (!filename.Contains("-"))
                 {
-                    Console.WriteLine("*** " + filename + " no '-' found");
+                    Console.WriteLine("[failed] no '-' found");
+                    _Failure++;
+                    _FailedFiles.Add(filename);
                     continue;
                 }
 
@@ -102,13 +123,17 @@ namespace MusicLabeler
 
                 if (String.IsNullOrEmpty(artist))
                 {
-                    Console.WriteLine("Unable to find artist in file " + file + ", skipping");
+                    Console.WriteLine("[failed] unable to find artist, skipping");
+                    _Failure++;
+                    _FailedFiles.Add(filename);
                     continue;
                 }
 
                 if (String.IsNullOrEmpty(title))
                 {
-                    Console.WriteLine("Unable to find title in file " + file + ", skipping");
+                    Console.WriteLine("[failed] unable to find title, skipping");
+                    _Failure++;
+                    _FailedFiles.Add(filename);
                     continue;
                 }
 
@@ -132,10 +157,24 @@ namespace MusicLabeler
 
                 tlFile.Save();
                 tlFile.Dispose();
+                _Success++;
 
                 #endregion
 
-                Console.WriteLine("Success: " + filename);
+                Console.WriteLine("[success]");
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Finished");
+            Console.WriteLine("  Success: " + _Success);
+            Console.WriteLine("  Failure: " + _Failure);
+            Console.WriteLine("");
+
+            if (_FailedFiles != null && _FailedFiles.Count > 0)
+            {
+                Console.WriteLine("Failed Files:");
+                foreach (string file in _FailedFiles) Console.WriteLine("  " + file);
+                Console.WriteLine("");
             }
         }
 
@@ -148,7 +187,16 @@ namespace MusicLabeler
             {
                 foreach (string f in Directory.GetFiles(root, pattern))
                 {
-                    ret.Add(f);
+                    if (!String.IsNullOrEmpty(f))
+                    {
+                        if (f.StartsWith(root + "._"))
+                        {
+                            // MacOS extended attribute file
+                            continue;
+                        }
+
+                        ret.Add(f);
+                    }
                 }
 
                 foreach (string d in Directory.GetDirectories(root))
